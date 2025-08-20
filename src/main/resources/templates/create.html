@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>할 일 등록</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="app">
+  <div class="container">
+    <div class="nav">
+      <div class="brand">
+        <div class="badge">✓</div>
+        <div class="title">할 일</div>
+      </div>
+      <a class="btn btn-secondary" href="/todos">목록</a>
+    </div>
+
+    <div class="card">
+      <div class="card-header">할 일 등록</div>
+      <div class="card-body">
+        <form id="createForm" class="form" th:action="@{/todos}" th:object="${form}" method="post">
+          <div class="field">
+            <label class="label" for="title">제목</label>
+            <input class="input" id="title" type="text" th:field="*{title}" placeholder="제목을 입력하세요" required />
+            <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">제목은 필수입니다</div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="description">설명</label>
+            <textarea class="textarea" id="description" th:field="*{description}" placeholder="설명(선택)" rows="4"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <div class="actions">
+          <button form="createForm" type="submit" class="btn btn-primary">등록</button>
+          <a class="btn btn-secondary" href="/todos">목록으로</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

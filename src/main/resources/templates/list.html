@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>할 일 목록</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="app">
+  <div class="container">
+    <div class="nav">
+      <div class="brand">
+        <div class="badge">✓</div>
+        <div class="title">할 일</div>
+      </div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <div class="muted" th:if="${nickname}">안녕하세요, <b th:text="${nickname}">닉네임</b>님</div>
+        <a class="btn btn-secondary" href="/logout">로그아웃</a>
+        <a class="btn btn-primary" href="/todos/create">등록</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>할 일 목록</div>
+        <div class="muted" th:text="${#lists.size(todos)} + '개'">0개</div>
+      </div>
+      <div class="card-body">
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>완료</th>
+                <th>제목</th>
+                <th>설명</th>
+                <th>작업</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="todo : ${todos}">
+                <td>
+                  <form th:action="@{'/todos/' + ${todo.id} + '/toggle'}" method="post">
+                    <input type="checkbox" th:checked="${todo.isDone}" onchange="this.form.submit()" />
+                  </form>
+                </td>
+                <td th:text="${todo.title}" th:classappend="${todo.isDone} ? 'done'"></td>
+                <td th:text="${todo.description}" th:classappend="${todo.isDone} ? 'done'"></td>
+                <td>
+                  <div class="actions">
+                    <a class="btn btn-secondary" th:href="@{'/todos/' + ${todo.id} + '/edit'}">수정</a>
+                    <form th:action="@{'/todos/' + ${todo.id} + '/delete'}" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+                      <button type="submit" class="btn btn-danger">삭제</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+              <tr th:if="${#lists.isEmpty(todos)}">
+                <td colspan="4" class="empty">아직 등록된 할 일이 없습니다. '등록'을 눌러 추가하세요.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

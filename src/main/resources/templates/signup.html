@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>회원가입</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div class="app">
+  <div class="container">
+    <div class="nav">
+      <div class="brand">
+        <div class="badge">✓</div>
+        <div class="title">할 일</div>
+      </div>
+      <a class="btn btn-secondary" href="/login">로그인</a>
+    </div>
+
+    <div class="card">
+      <div class="card-header">회원가입</div>
+      <div class="card-body">
+        <form id="signupForm" class="form" th:action="@{/signup}" th:object="${form}" method="post">
+          <div th:if="${#fields.hasGlobalErrors()}" class="error" th:each="e : ${#fields.globalErrors()}" th:text="${e}">오류</div>
+          <div class="field">
+            <label class="label" for="email">이메일</label>
+            <input class="input" id="email" type="email" th:field="*{email}" placeholder="이메일" required />
+            <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">이메일 오류</div>
+          </div>
+          <div class="field">
+            <label class="label" for="password">비밀번호</label>
+            <input class="input" id="password" type="password" th:field="*{password}" placeholder="비밀번호" required />
+            <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">비밀번호 오류</div>
+          </div>
+          <div class="field">
+            <label class="label" for="nickname">닉네임</label>
+            <input class="input" id="nickname" type="text" th:field="*{nickname}" placeholder="닉네임" required />
+            <div class="error" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">닉네임 오류</div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <div class="actions">
+          <button form="signupForm" type="submit" class="btn btn-primary">회원가입</button>
+          <a class="btn btn-secondary" href="/login">로그인</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
