@@ -1,4 +1,4 @@
-# Claude Spring – 세션 기반 투두 리스트
+# Junie Spring for Kotlin – 세션 기반 투두 리스트
 
 세션(Session) 기반 회원가입/로그인 기능을 갖춘 Kotlin + Spring Boot 투두 리스트 애플리케이션입니다. 로그인한 사용자만 자신의 투두를 조회/등록/수정/삭제할 수 있도록 사용자별로 데이터가 격리됩니다. Thymeleaf 기반의 뷰를 제공하며, H2 인메모리 데이터베이스를 사용합니다.
 
